@@ -7,7 +7,7 @@ import * as CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class DataBaseService {
-  url = 'color-blindness-backend.vercel.app'
+  url = 'www.color-blindness-backend.vercel.app'
   private goHome = new BehaviorSubject<boolean>(false);
   private isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(private http: HttpClient) { }
