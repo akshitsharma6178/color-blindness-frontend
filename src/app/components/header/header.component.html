@@ -1,0 +1,10 @@
+<div class="main-head">
+    <img (click)="goHome()" src="../../../assets/logo.png" class="title">
+    <div class="mid-cont">
+        <!-- <div class="active-cont"></div> -->
+        <button mat-button (click)="goHome()" class="mid-btn active">Home</button>
+        <button mat-button (click)="openSnackBar()"class="mid-btn abt-btn">About</button>
+    </div>
+    <button *ngIf="!loggedIn" class="lgn-btn" (click) = "openDialog()"mat-button><span class="btn-text">Login</span></button>
+    <span *ngIf="loggedIn" class="u_name">{{name}}<mat-icon style="cursor: pointer;margin-left: 30px;" (click)="logOut()">logout</mat-icon></span>
+</div>

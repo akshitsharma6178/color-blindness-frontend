@@ -1,0 +1,128 @@
+<div class="main-div">
+    <span *ngIf="!source" class="title-1">Experience the world in full color</span> 
+    <span *ngIf="!source" class="title-2">This website color corrects images for those with color vision deficiency.</span>
+    <label [ngClass]="{'source-button-en': source && !submit, 'source-button-sub': submit && source}" class="source-button" [ngStyle]="{'animation' : (source)? 'none' : 'pulse 2s infinite'}">
+        <div *ngIf="!source" id="background" class="btn-text">
+            Get Started
+        </div>
+        <div *ngIf="source && !submit" id="background" class="btn-text">
+            Another Image
+        </div>
+        <div *ngIf="source && submit" id="background" class="btn-text">
+            Retry
+        </div>
+        <input class="inp-btn"  type="file" accept="image/*" title=" " (change)="updateSource($event); resetInput($event.target)">
+    </label>
+    <div *ngIf="!source" style="perspective: 1000px; align-self: center;">
+        <img style="transform: rotateY(-12deg);
+        margin-top: 150px;
+        width: 35vw;
+        min-width: 300px;"src="../../../assets/diff.jpg">
+    </div>
+<!-- <mat-card id='card' class="card"> -->
+
+<!-- </mat-card> -->
+
+<div [ngClass]="{'img-div' : !submit, 'img-div-submit': submit}" *ngIf="source" >
+    <!-- <div class="txt-desc">
+        <span>
+            Our Colorblindness Selection Menu makes it easy for users to select the type of color blindness they experience. Once you choose your type of color blindness, the preset values of the sliders will be adjusted to enhance the color settings on the screen according to your visual needs. This feature can be especially helpful for individuals with color blindness, as it ensures that the software or website is accessible and user-friendly for all users.
+            If you prefer, you can also customize the slider values to your liking. This feature provides a tailored experience that enhances your overall user experience. Whether you have protanopia, deuteranopia, tritanopia, or another type of color blindness, our Colorblindness Selection Menu can help you see the colors on the screen more clearly.
+            To get started, simply select your type of color blindness and adjust the slider values as desired.
+        </span>
+    </div> -->
+    <div *ngIf="!submit" class="txt-desc">
+        <p>Our Colorblindness Selection Menu makes it easy for users to select their type of color blindness. Once you choose your type of color blindness, the preset values of the sliders will be adjusted to enhance the color settings on the screen according to your visual needs.</p>
+        <p>This feature can be especially helpful for individuals with color blindness, as it ensures that the software or website is accessible and user-friendly for all users. If you prefer, you can also customize the slider values to your liking. This feature provides a tailored experience that enhances your overall user experience.</p>
+        <!-- <p>Whether you have protanopia, deuteranopia, tritanopia, or another type of color blindness, our Colorblindness Selection Menu can help you see the colors on the screen more clearly.</p> -->
+        <p>To get started, simply select your type of color blindness and adjust the slider values as desired.</p>
+    </div>
+    <mat-card  [ngClass]="{'card' : !submit, 'card-submit': submit}">
+        <img class="img"  [src]="source" src=""> 
+    </mat-card>
+    <div *ngIf="source && !submit" class="custom">
+    <!-- <span class="title-3">Customize</span> -->
+        <div class="dropdown">
+            <div class="adjustment-tab">
+                <!-- <mat-form-field appearance="fill">
+                    <mat-label class="txt-lab">Color Blindness Type</mat-label>
+                    <mat-select  [(ngModel)]="selectedValue" name="food">
+                    <mat-option *ngFor="let type of types" [value]="type.value">
+                        {{type.viewValue}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>            -->
+                    <!-- <mat-chip-list [(ngModel)]="selectedValue" aria-label="Colorblindness Type">
+                      <mat-chip [selectable]="true" [selected]="selectedValue === type.value" [ngStyle]="{ 'background-color': selectedValue === type.value ? 'orange' : '' }" #chip="matChip" (click)="chip.select()" *ngFor="let type of types" [value]="type.value">{{type.viewValue}}</mat-chip>
+                    </mat-chip-list> -->
+                    <span class="cmp-text">Colorblindness Type</span>
+                    <mat-chip-list class="chip-cls" [(ngModel)]="selectedValue" aria-label="Colorblindness Type">
+                        <mat-chip class="chip-cls2" [selectable]="true" *ngFor="let type of types" [value]="type.value" 
+                          [ngClass]="{ 'selected-chip': selectedValue === type.value }"
+                          (click)="selectedValue = type.value; onChipClick(type.value)">
+                          {{type.viewValue}}
+                        </mat-chip>
+                      </mat-chip-list>
+                    <img src="../../../assets/type.jpg" class="cmp-img" alt="">
+                    <div class="slider-div">
+                        <div>
+                            <span class="slider-txt" [ngClass] = "{'disabled' : !redSliderEn}">Red&nbsp;&nbsp;&nbsp; :-</span>
+                            <mat-slider 
+                            class="slider"
+                            thumbLabel
+                            [displayWith]="formatLabel"
+                            tickInterval="5"
+                            [(ngModel)] = "redSlider"
+                            [disabled] = "!redSliderEn"
+                            step="5"
+                            min="0"
+                            max="255"
+                            aria-label="units"></mat-slider> 
+                        </div>
+                        <div>
+                            <span class="slider-txt" [ngClass] = "{'disabled' : !blueSliderEn }">Blue &nbsp; :-</span>
+                            <mat-slider 
+                            class="slider"
+                            thumbLabel
+                            [displayWith]="formatLabel"
+                            tickInterval="5"
+                            [disabled] = "!blueSliderEn"
+                            [(ngModel)] = "blueSlider"
+                            step="5"
+                            min="0"
+                            max="255"
+                            aria-label="units"></mat-slider> 
+                        </div>
+                        <div>
+                            <span class="slider-txt" [ngClass] = "{'disabled' : !greenSliderEn}">Green :-</span>
+                            <mat-slider 
+                            class="slider"
+                            thumbLabel
+                            [displayWith]="formatLabel"
+                            tickInterval="5"
+                            [disabled] = "!greenSliderEn"
+                            step="5"
+                            [(ngModel)] = "greenSlider"
+                            min="0"
+                            max="255"
+                            aria-label="units"></mat-slider> 
+                        </div>
+                    </div>
+            </div>
+            <mat-checkbox [disabled] ="!loggedIn" [matTooltip]="!loggedIn ? tooltipMessage : 'Click here to Save parameters'"  (click)="savCh()" style="transform: translateY(130px);color: white; margin: 12%; margin-top: 14%;" [(ngModel)]="saveVal">Save Values for future use</mat-checkbox>
+            <div class="btn-ps">
+                <button [disabled] = "!selectedValue" class="btn" (click)="onSubmit()" mat-button> Submit</button>
+            </div>
+        </div>
+    </div>
+    <div *ngIf ="submit">
+        <mat-card   [ngClass]="{'card' : !submit, 'card-submit': submit}" >
+            <img class="img"  [src]="imageData">
+        </mat-card>
+        <button class="dwn-btn" mat-button (click)="downloadImage()">Download</button>
+    </div>
+</div>
+</div>
+
+<!-- <input class="inp-btn" type="file" accept="image/*" title=" " (change)="updateSource($event)">
+<img class="img" *ngIf="source" [src]="source" src="">  -->

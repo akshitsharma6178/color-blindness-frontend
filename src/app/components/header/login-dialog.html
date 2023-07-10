@@ -1,0 +1,48 @@
+<!-- <h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input type="email" matInput [(ngModel)]="data.uname">
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput [(ngModel)]="data.pass">
+  </mat-form-field>    
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data">Login</button>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+</div> -->
+<h1 mat-dialog-title>Login</h1>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="register" appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput [formControl]="data.name" required>
+    <mat-error *ngIf="(data.name.invalid)">Please enter a name</mat-error>
+  </mat-form-field> 
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput [formControl]="data.uname" email required>
+    <mat-error *ngIf="data.uname.invalid">Please enter a valid email address</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input  type="password" matInput [formControl]="data.pass" required>
+    <mat-error *ngIf="data.pass.invalid">Please enter password</mat-error>
+  </mat-form-field>    
+  <mat-form-field *ngIf="register" appearance="fill">
+    <mat-label>Confirm Password</mat-label>
+    <input  type="password" matInput [formControl]="data.conf_pass" required>
+    <mat-error *ngIf="(register && data.pass.value !== data.conf_pass.value)">Passwords do not match</mat-error>
+  </mat-form-field> 
+</div>
+<div mat-dialog-actions>
+  <button mat-button  [mat-dialog-close]="data" [disabled]="data.uname.invalid || data.pass.invalid || (register && data.pass.value !== data.conf_pass.value)">Login</button>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+</div>
+<div style="justify-content: center; font-size: x-small;" *ngIf="!register" mat-dialog-actions>
+  New User,<button mat-button style="color: blueviolet;" (click)="modeChange()">Sign-Up</button>
+</div>
+<div style="justify-content: center; font-size: x-small;" *ngIf="register" mat-dialog-actions>
+  Already Registered,<button style="color: blueviolet;" mat-button (click)="modeChange()">Sign-In</button>
+</div>
