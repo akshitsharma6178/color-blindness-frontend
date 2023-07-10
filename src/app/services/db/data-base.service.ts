@@ -39,12 +39,12 @@ export class DataBaseService {
   }
 
   getData(){
-    let data = this.http.get(`${this.url}/`)
+    let data = this.http.get(`https://${this.url}/`)
     return data
   }
 
   sendImg(data: any){
-    this.http.post(`${this.url}/python`,data).subscribe(resp => {
+    this.http.post(`https://${this.url}/python`,data).subscribe(resp => {
       return resp;
     })
   }
@@ -55,7 +55,7 @@ export class DataBaseService {
     formData.append('obj', JSON.stringify(obj))
 
 
-    let res =  this.http.post(`${this.url}/upload`, formData, {responseType: 'arraybuffer'});
+    let res =  this.http.post(`https://${this.url}/upload`, formData, {responseType: 'arraybuffer'});
     return res
   }
 
@@ -77,23 +77,23 @@ export class DataBaseService {
 
   login(user:string, pass:string) {
     const body = {user, pass}
-    return this.http.post(`${this.url}/login`, body);
+    return this.http.post(`https://${this.url}/login`, body);
   }
 
   register(name: string, user:string, pass:string) {
     const body = {name, user, pass}
-    return this.http.post(`${this.url}/register`, body);
+    return this.http.post(`https://${this.url}/register`, body);
   }
 
   setParamVal(email: string, sliderDat: any){
     // let data = JSON.stringify(sliderDat) 
     const body = {email, sliderDat}
-    return this.http.post(`${this.url}/setParmVal`, body)
+    return this.http.post(`https://${this.url}/setParmVal`, body)
   }
 
   getParamVal(name: string) {
     const body = {name}
-    return this.http.post(`${this.url}/getParmVal`, body)
+    return this.http.post(`https://${this.url}/getParmVal`, body)
   }
 
   removeParam(name: string) {
@@ -101,7 +101,7 @@ export class DataBaseService {
   }
 
   getFile(path: any) {
-    return this.http.post(`${this.url}/file`, path)
+    return this.http.post(`https://${this.url}/file`, path)
   }
 
   setParamLocal(data: any){
