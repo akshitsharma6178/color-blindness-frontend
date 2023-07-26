@@ -1,40 +1,45 @@
-<div class="main-div">
-    <span *ngIf="!source" class="title-1">Experience the world in full color</span> 
-    <span *ngIf="!source" class="title-2">This website color corrects images for those with color vision deficiency.</span>
-    <label [ngClass]="{'source-button-en': source && !submit, 'source-button-sub': submit && source}" class="source-button" [ngStyle]="{'animation' : (source)? 'none' : 'pulse 2s infinite'}">
-        <div *ngIf="!source" id="background" class="btn-text">
-            Get Started
+<div class="main-page">
+    <div *ngIf="!source" class="main-div">
+        <div  class="main-txt">
+            <span class="title-1">Experience the world in full color</span> 
+            <span class="title-2">This website color corrects images for those with color vision deficiency.</span>
         </div>
-        <div *ngIf="source && !submit" id="background" class="btn-text">
-            Another Image
+        <label class="source-button" style="animation: pulse 2s infinite">
+            <div class="btn-text">Get Started</div>
+            <input class="inp-btn"  type="file" accept="image/*" title=" " (change)="updateSource($event); resetInput($event.target)">
+        </label>
+        <!-- <label [ngClass]="{'source-button-en': source && !submit, 'source-button-sub': submit && source}" class="source-button" [ngStyle]="{'animation' : (source)? 'none' : 'pulse 2s infinite'}">
+            <div *ngIf="!source" id="background" class="btn-text">
+                Get Started
+            </div>
+            <div *ngIf="source && !submit" id="background" class="btn-text">
+                Another Image
+            </div>
+            <div *ngIf="source && submit" id="background" class="btn-text">
+                Retry
+            </div>
+            <input class="inp-btn"  type="file" accept="image/*" title=" " (change)="updateSource($event); resetInput($event.target)">
+        </label> -->
+        <div style="perspective: 1000px; align-self: center;">
+            <img style="transform: rotateY(-12deg);
+            width: 35vw;
+            min-width: 300px;"src="../../../assets/diff.jpg">
         </div>
-        <div *ngIf="source && submit" id="background" class="btn-text">
-            Retry
-        </div>
-        <input class="inp-btn"  type="file" accept="image/*" title=" " (change)="updateSource($event); resetInput($event.target)">
-    </label>
-    <div *ngIf="!source" style="perspective: 1000px; align-self: center;">
-        <img style="transform: rotateY(-12deg);
-        margin-top: 150px;
-        width: 35vw;
-        min-width: 300px;"src="../../../assets/diff.jpg">
     </div>
+
 <!-- <mat-card id='card' class="card"> -->
 
 <!-- </mat-card> -->
 
-<div [ngClass]="{'img-div' : !submit, 'img-div-submit': submit}" *ngIf="source" >
-    <!-- <div class="txt-desc">
-        <span>
-            Our Colorblindness Selection Menu makes it easy for users to select the type of color blindness they experience. Once you choose your type of color blindness, the preset values of the sliders will be adjusted to enhance the color settings on the screen according to your visual needs. This feature can be especially helpful for individuals with color blindness, as it ensures that the software or website is accessible and user-friendly for all users.
-            If you prefer, you can also customize the slider values to your liking. This feature provides a tailored experience that enhances your overall user experience. Whether you have protanopia, deuteranopia, tritanopia, or another type of color blindness, our Colorblindness Selection Menu can help you see the colors on the screen more clearly.
-            To get started, simply select your type of color blindness and adjust the slider values as desired.
-        </span>
-    </div> -->
+<div [ngClass]="{'img-div' : !submit, 'img-div-submit': submit}" *ngIf="source && !submit" >
+
     <div *ngIf="!submit" class="txt-desc">
+        <label class="source-button-en source-button">
+            <div class="btn-text">Another Image</div>
+            <input class="inp-btn"  type="file" accept="image/*" title=" " (change)="updateSource($event); resetInput($event.target)">
+        </label>
         <p>Our Colorblindness Selection Menu makes it easy for users to select their type of color blindness. Once you choose your type of color blindness, the preset values of the sliders will be adjusted to enhance the color settings on the screen according to your visual needs.</p>
         <p>This feature can be especially helpful for individuals with color blindness, as it ensures that the software or website is accessible and user-friendly for all users. If you prefer, you can also customize the slider values to your liking. This feature provides a tailored experience that enhances your overall user experience.</p>
-        <!-- <p>Whether you have protanopia, deuteranopia, tritanopia, or another type of color blindness, our Colorblindness Selection Menu can help you see the colors on the screen more clearly.</p> -->
         <p>To get started, simply select your type of color blindness and adjust the slider values as desired.</p>
     </div>
     <mat-card  [ngClass]="{'card' : !submit, 'card-submit': submit}">
@@ -109,18 +114,26 @@
                         </div>
                     </div>
             </div>
-            <mat-checkbox [disabled] ="!loggedIn" [matTooltip]="!loggedIn ? tooltipMessage : 'Click here to Save parameters'"  (click)="savCh()" style="transform: translateY(130px);color: white; margin: 12%; margin-top: 14%;" [(ngModel)]="saveVal">Save Values for future use</mat-checkbox>
+            <mat-checkbox [disabled] ="!loggedIn" [matTooltip]="!loggedIn ? tooltipMessage : 'Click here to Save parameters'"  (click)="savCh()" style="    /* transform: translateY(130px); */
+            color: white;
+            user-select: none;
+            -webkit-user-drag: none;
+            touch-action: none;
+            -webkit-tap-highlight-color: transparent;" [(ngModel)]="saveVal">Save Values for future use</mat-checkbox>
             <div class="btn-ps">
                 <button [disabled] = "!selectedValue" class="btn" (click)="onSubmit()" mat-button> Submit</button>
             </div>
         </div>
     </div>
-    <div *ngIf ="submit">
-        <mat-card   [ngClass]="{'card' : !submit, 'card-submit': submit}" >
-            <img class="img"  [src]="imageData">
-        </mat-card>
-        <button class="dwn-btn" mat-button (click)="downloadImage()">Download</button>
-    </div>
+</div>
+<div *ngIf ="submit" class="img-div-submit">
+    <mat-card  [ngClass]="{'card' : !submit, 'card-submit': submit}">
+        <img class="img"  [src]="source" src=""> 
+    </mat-card>
+    <button class="dwn-btn" mat-button (click)="downloadImage()">Download</button>
+    <mat-card   [ngClass]="{'card' : !submit, 'card-submit': submit}" >
+        <img class="img"  [src]="source">
+    </mat-card>
 </div>
 </div>
 
