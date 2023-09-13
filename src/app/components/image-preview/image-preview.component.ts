@@ -182,16 +182,16 @@ export class ImagePreviewComponent{
     if(this.saveVal) this.db.setParamVal(this.name,obj).subscribe((res: any)=>{
       return true;
     })
-    // if(this.curFile)
-    //   this.db.upload(this.curFile, obj).subscribe( (res: any) =>{
-    //     let byteArray = new Uint8Array(res);
-    //     let charString = byteArray.reduce((data: any, byte:any) => {
-    //       return data + String.fromCharCode(byte);
-    //     },'');
-    //     let base64String = btoa(charString);
-    //     this.imageData = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + base64String);
-    //     this.submit = true
-    // })
+    if(this.curFile)
+      this.db.upload(this.curFile, obj).subscribe( (res: any) =>{
+        let byteArray = new Uint8Array(res);
+        let charString = byteArray.reduce((data: any, byte:any) => {
+          return data + String.fromCharCode(byte);
+        },'');
+        let base64String = btoa(charString);
+        this.imageData = this.sanitizer.bypassSecurityTrustUrl('data:image/jpeg;base64,' + base64String);
+        this.submit = true
+    })
     this.submit = true;
 
   }
