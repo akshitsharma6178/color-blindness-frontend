@@ -137,7 +137,7 @@ export class ImagePreviewComponent{
         break;
       case '4':
         this.redSliderEn = true;
-        this.blueSliderEn = true;
+        this.blueSliderEn = true; 
         this.greenSliderEn = true
         this.redSlider = 0;
         this.greenSlider = 0;
